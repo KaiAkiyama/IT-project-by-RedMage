@@ -1,0 +1,22 @@
+{% extends 'tracker/base.html' %}
+
+{% block content %}
+<div class="row justify-content-center mt-5">
+  <div class="col-md-5">
+    <div class="card shadow-sm border-danger">
+      <div class="card-body p-4 text-center">
+        <h4 class="text-danger mb-3">Delete Record?</h4>
+        <p class="mb-1">You are about to delete:</p>
+        <p class="fw-bold fs-5">{{ record.title }}</p>
+        <p class="text-muted small">{{ record.study_date }} · {{ record.duration_mins }} mins</p>
+
+        <form method="post" class="d-flex justify-content-center gap-3 mt-4">
+          {% csrf_token %}
+          <button type="submit" class="btn btn-danger">Yes, Delete</button>
+          <a href="{% url 'record_list' %}" class="btn btn-outline-secondary">Cancel</a>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

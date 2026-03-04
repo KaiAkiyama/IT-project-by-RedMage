@@ -1,0 +1,39 @@
+{% extends 'tracker/base.html' %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+  <h2>My Study Records</h2>
+  <a href="{% url 'record_create' %}" class="btn btn-primary">+ New Record</a>
+</div>
+
+{% if records %}
+<div class="row g-3">
+  {% for record in records %}
+  <div class="col-md-6">
+    <div class="card shadow-sm h-100">
+      <div class="card-body">
+        <div class="d-flex justify-content-between">
+          <h5 class="card-title">{{ record.title }}</h5>
+          <span class="badge bg-primary">{{ record.get_study_type_display }}</span>
+        </div>
+        <p class="text-muted small mb-1">📅 {{ record.study_date }} &nbsp; ⏱ {{ record.duration_mins }} mins</p>
+        {% if record.reflection_note %}
+        <p class="card-text small">{{ record.reflection_note }}</p>
+        {% endif %}
+      </div>
+      <div class="card-footer bg-transparent d-flex gap-2">
+        <a href="{% url 'record_edit' record.pk %}" class="btn btn-outline-secondary btn-sm">Edit</a>
+        <a href="{% url 'record_delete' record.pk %}" class="btn btn-outline-danger btn-sm">Delete</a>
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+
+{% else %}
+<div class="text-center mt-5 text-muted">
+  <p class="fs-5">No records yet.</p>
+  <a href="{% url 'record_create' %}" class="btn btn-primary">Add your first record</a>
+</div>
+{% endif %}
+{% endblock %}
